@@ -1,0 +1,14 @@
+# User-specific files
+*.suo
+*.user
+.vs/
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# NuGet Packages Directory
+## TODO: If you have NuGet Package Restore enabled, uncomment the next line
+packages/
+
+# Other files
