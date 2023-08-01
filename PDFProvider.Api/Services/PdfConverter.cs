@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using NLog;
 using PDFProvider.Api.Helpers;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,11 @@ namespace PDFProvider.Api.Services
 {
     public class PdfConverter
     {
-        // 紀錄ErrorLog及訊息
-        private string _errorMessage = string.Empty;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         // 定義字型
         private BaseFont font = null;
         private BaseFont fontBold = null;
-
-        public string ErrorDescription
-        {
-            get { return this._errorMessage; }
-        }
 
         static PdfConverter()
         {
@@ -33,6 +28,7 @@ namespace PDFProvider.Api.Services
             }
             catch (Exception e)
             {
+                _logger.Error(e);
             }
         }
 
@@ -56,7 +52,7 @@ namespace PDFProvider.Api.Services
                 }
                 catch (Exception ex)
                 {
-                    this._errorMessage = this._errorMessage + ex.Message;
+                    _logger.Error(ex);
                     return null;
                 }
             }
@@ -132,7 +128,7 @@ namespace PDFProvider.Api.Services
             }
             catch (Exception ex)
             {
-                this._errorMessage = this._errorMessage + ex.Message;
+                _logger.Error(ex);
                 return null;
             }
         }

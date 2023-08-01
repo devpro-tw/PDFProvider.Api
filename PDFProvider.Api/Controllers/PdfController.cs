@@ -1,4 +1,5 @@
-﻿using PDFProvider.Api.Helpers;
+﻿using NLog;
+using PDFProvider.Api.Helpers;
 using PDFProvider.Api.Models;
 using PDFProvider.Api.Services;
 using System;
@@ -13,17 +14,20 @@ namespace PDFProvider.Api.Controllers
 {
     public class PdfController : ApiController
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// PDF 套表
         /// </summary>
         [HttpPost]
         public FormFillerRs FormFiller(FormFillerRq model)
         {
+            var result = new FormFillerRs();
             byte[] ret = null;
-            if (!string.IsNullOrEmpty(model.filename))
+            if (!string.IsNullOrEmpty(model.TemplateName))
             {
                 string logFileName = Path.Combine(ConfigHelper.PdfLogPath, @"pdf" + DateTime.Now.ToString("yyyyMMddhhmmss") + ".json");
-                var fields = model.items.ToDictionary(x => x.Name, x => x.Value);
+                var fields = model.Items.ToDictionary(x => x.Name, x => x.Value);
 
                 try
                 {
@@ -42,26 +46,28 @@ namespace PDFProvider.Api.Controllers
                 }
                 catch (Exception e)
                 {
-                    File.WriteAllText(logFileName, e.Message);
+                    _logger.Error(e);
                 }
 
-                string templateName = PathHelper.GetExistTemplateFileName(ConfigHelper.PdfTemplatePath, model.filename);
-                if (!string.IsNullOrEmpty(templateName))
+                string templateFilename = PathHelper.GetExistTemplateFileName(ConfigHelper.PdfTemplatePath, $"{model.TemplateName}.pdf");
+                if (!string.IsNullOrEmpty(templateFilename))
                 {
-                    FileInfo finfo = new FileInfo(templateName);
+                    FileInfo finfo = new FileInfo(templateFilename);
                     if (finfo.Exists)
                     {
                         PdfConverter converter = new PdfConverter();
-                        ret = converter.ConvertWithPassword(finfo.FullName, fields, model.pin);
+                        ret = converter.ConvertWithPassword(finfo.FullName, fields, model.Pin);
                     }
+                }
+                else
+                {
+                    result.ErrorMessage = "樣版檔案不存在";
+                    _logger.Error(result.ErrorMessage);
                 }
             }
 
-            var result = new FormFillerRs
-            {
-                Success = ret != null && ret.Length > 0,
-                PdfFile = ret
-            };
+            result.Success = ret != null && ret.Length > 0;
+            result.PdfFile = ret;
 
             return result;
         }

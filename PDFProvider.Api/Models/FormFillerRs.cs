@@ -13,11 +13,16 @@ namespace PDFProvider.Api.Models
         /// <summary>
         /// 是否成功
         /// </summary>
-        public bool Success = false;
+        public bool Success { get; set; }
 
         /// <summary>
         /// PDF 檔案
         /// </summary>
-        public byte[] PdfFile = null;
+        public byte[] PdfFile { get; set; }
+
+        /// <summary>
+        /// 錯誤訊息
+        /// </summary>
+        public string ErrorMessage { get; set; } = string.Empty;
     }
 }

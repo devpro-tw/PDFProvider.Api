@@ -8,13 +8,13 @@
 
 * Microsoft Visul Studio 2022
 * Microsoft .Net Framework 4.8
-* iTextSharp 5.0.0
+* [iTextSharp 5.0.0.0](https://sourceforge.net/projects/itextsharp/)
 
 安裝方式：
 
 * 發佈專案: 建置專案，並產生執行時期的檔案。
 * 安裝 IIS
-* 發佈至 IIS: 將發佈好的專案執行以 IIS 管理員進行設定即可。
+* 發佈至 IIS: 將發佈好的執行檔案以 IIS 管理員進行設定即可。
 
 ## 使用範例
 
@@ -56,13 +56,13 @@ if (result.Success)
 
 ## 貢獻
 
-我們歡迎您參與貢獻！請參考 貢獻指南 了解如何參與。
+我們對所有拉取請求保持開放態度。如果您找到錯誤、設計問題或拼寫錯誤，請向我們發送拉取請求。
 
 如果您在使用過程中遇到問題或有任何建議，請在 問題追蹤器 上提交問題。
 
 ## 授權
 
-這個專案採用 MIT 授權，詳情請參考 [LICENSE](https://licenses.nuget.org/MIT) 文件。
+這是一個在 GNU AGPLv3 許可證下發佈的開源專案。詳細資訊，請參閱許可證或訪問 GNU 官方頁面： http://www.gnu.org/licenses/agpl-3.0.html.
 
 ## 版本歷史
 

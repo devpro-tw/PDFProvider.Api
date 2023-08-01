@@ -1,8 +1,6 @@
-﻿using PDFProvider.Api.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace PDFProvider.Api.Models
 {
@@ -14,16 +12,17 @@ namespace PDFProvider.Api.Models
         /// <summary>
         /// 欄位清單
         /// </summary>
-        public List<FormField> items { get; set; }
+        public List<FormField> Items { get; set; }
 
         /// <summary>
         /// 樣版檔名
         /// </summary>
-        public string filename { get; set; }
+        [Required]
+        public string TemplateName { get; set; }
 
         /// <summary>
         /// PDF 檔案開啟密碼
         /// </summary>
-        public string pin { get; set; }
+        public string Pin { get; set; }
     }
 }
