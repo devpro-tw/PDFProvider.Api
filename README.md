@@ -8,6 +8,9 @@
 
 * Microsoft Visul Studio 2022
 * Microsoft .Net Framework 4.8
+
+本專案用於產生 PDF 檔案所使用的套件如下：
+
 * [iTextSharp 5.0.0.0](https://sourceforge.net/projects/itextsharp/)
 
 安裝方式：
@@ -26,31 +29,33 @@ client.BaseAddress = new Uri("https://localhost:44389/");
 client.DefaultRequestHeaders.Accept.Clear();
 client.DefaultRequestHeaders.Accept.Add(
     new MediaTypeWithQualityHeaderValue("application/json"));
-var model = new FormFillerRq
+var model = new
 {
-    filename = "template.pdf",
-    items =
-        new List<Field> {
-            new Field { Name = "Field_1", Value = "Value 1" },
-            new Field { Name = "Field_2", Value = "Value 2" },
-            new Field { Name = "Field_3", Value = "Value 3" },
-            new Field { Name = "Field_4", Value = "Value 4" },
-            new Field { Name = "Field_5", Value = "Value 5" }
-        }
+    TemplateName = "template",
+    Items = new[]  {
+        new { Name = "Field_1", Value = "Value 1" },
+        new { Name = "Field_2", Value = "Value 2" },
+        new { Name = "Field_3", Value = "Value 3" },
+        new { Name = "Field_4", Value = "Value 4" },
+        new { Name = "Field_5", Value = "Value 5" }
+    }
 };
 
 HttpResponseMessage response = await client.PostAsJsonAsync(
     "api/Pdf/FormFiller", model);
 response.EnsureSuccessStatusCode();
+
 var respText = await response.Content.ReadAsStringAsync();
 var result = JsonConvert.DeserializeObject<FormFillerRs>(respText);
-
-
 Console.WriteLine($"Sccess: {result.Success}");
 if (result.Success)
 {
     string path = Directory.GetCurrentDirectory();
     System.IO.File.WriteAllBytes(Path.Combine(path, "test.pdf"), result.PdfFile);
+}
+else
+{
+    Console.WriteLine($"Error: {result.ErrorMessage}");
 }
 ```
 
@@ -58,7 +63,7 @@ if (result.Success)
 
 我們對所有拉取請求保持開放態度。如果您找到錯誤、設計問題或拼寫錯誤，請向我們發送拉取請求。
 
-如果您在使用過程中遇到問題或有任何建議，請在 問題追蹤器 上提交問題。
+如果您在使用過程中遇到問題或有任何建議，請在 [問題追蹤器](https://github.com/devpro-tw/PDFProvider.Api/issues) 上提交問題。
 
 ## 授權
 
@@ -70,6 +75,5 @@ if (result.Success)
 
 ## 相關連結
 
-* 專案網站
-* 文件
-* 問題追蹤器
+* [專案網站](https://github.com/devpro-tw/PDFProvider.Api)
+* [問題追蹤器](https://github.com/devpro-tw/PDFProvider.Api/issues)
