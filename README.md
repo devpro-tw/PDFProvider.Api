@@ -1,6 +1,15 @@
 ﻿# PDFProvider.Api
 
-本專案提供一個簡易的 PDF 套表 API，傳入 PDF 表單欄位/值的對應表，以及 PDF 檔名，回傳 PDF JSON Byte Array。
+本專案提供 PDF 套表 API，傳入 PDF 表單欄位/值的對應表，以及 PDF 樣版名稱，將回傳 PDF JSON Byte Array，讓用戶端進行 PDF 預覽或轉存。
+
+本專案使用  [iTextSharp 5.0.0.0](https://sourceforge.net/projects/itextsharp/) 來產生 PDF 檔案。 (本專案並未修改 iTextSharp 原始程式碼)。
+
+iTextSharp 套件的相關連結如下：
+
+* https://sourceforge.net/projects/itextsharp/
+* http://itextpdf.com/
+* 請參考 https://nuget.info/packages/iTextSharp/5.0.5 的授權資訊
+
 
 ## 安裝
 
@@ -8,10 +17,6 @@
 
 * Microsoft Visul Studio 2022
 * Microsoft .Net Framework 4.8
-
-本專案用於產生 PDF 檔案所使用的套件如下：
-
-* [iTextSharp 5.0.0.0](https://sourceforge.net/projects/itextsharp/)
 
 安裝方式：
 
